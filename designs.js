@@ -1,23 +1,38 @@
 // Select color input
-// Select size input
+const color = document.getElementById("colorPicker").value;
 
+// Select size input
+const table = document.getElementById("pixel_canvas");
+
+const setSize = function(){
+    table.innerHTML = "";
+    event.preventDefault();
+    const height = document.getElementById("input_height").value;
+    const width = document.getElementById("input_width").value;
+    makeGrid(height, width);
+ };
 
 
 // When size is submitted by the user, call makeGrid()
 
-function makeGrid() {
-    var height = document.getElementById("input_height").value;
-    var width = document.getElementById("input_width").value;
-    var table = document.getElementById("pixel_canvas");
+function makeGrid(height, width) {
 
-    for (i = 0; i < height; i++){
-        var rows = document.createElement("tr");
-        // alert(height + " heigh works");
-        for(j = 0; j < width; j++){
-        var cells = document.createElement("td");
-            // alert(width + " widht wroks");
-                rows.appendChild(cells);
+    for (let i = 0; i < height; i++){
+        const rows = document.createElement("tr");
+        for (let j = 0; j < width; j++){
+        const cells = document.createElement("td");
+        rows.appendChild(cells);
+        cells.setAttribute("id", "cell" + [i]+[j]);
+        cells.setAttribute("onclick", "drawPixels(this.id)");
         }
     table.appendChild(rows);
     }
 }
+
+
+function drawPixels(clicked_id){
+    document.getElementById(clicked_id).style.backgroundColor = document.getElementById("colorPicker").value;
+}
+
+
+
